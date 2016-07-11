@@ -70,11 +70,17 @@ public class PlugwiseMQTTMeteringPowerOutletDriverInstance
 	// the scene set
 	private HashSet<Integer> scenes;
 
+	// the first state flag
+	private boolean firstState;
+
 	public PlugwiseMQTTMeteringPowerOutletDriverInstance(
 			PlugwiseMQTTNetwork plugwiseMQTTNetwork, ControllableDevice device,
 			BundleContext context)
 	{
 		super(plugwiseMQTTNetwork, device);
+
+		// initially no state has been detected from the newtork
+		this.firstState = true;
 
 		// build inner data structures
 		this.groups = new HashSet<Integer>();
@@ -355,6 +361,20 @@ public class PlugwiseMQTTMeteringPowerOutletDriverInstance
 		DecimalMeasure<Energy> energy = DecimalMeasure
 				.valueOf(message.getEnergy() + " Wh");
 
+		// if not on, turn it on
+		if ((this.currentState.getState(OnOffState.class.getSimpleName())
+				.getCurrentStateValue()[0] instanceof OffStateValue)
+				&& (message.getPower() > 0.0) && this.firstState)
+		{
+			OnOffState onOffState = new OnOffState(new OnStateValue());
+
+			// update the on-off state
+			this.currentState.setState(OnOffState.class.getSimpleName(),
+					onOffState);
+			// turn off the first state flag
+			this.firstState = false;
+		}
+
 		// update the power state
 		this.updatePowerState(power);
 
@@ -374,6 +394,21 @@ public class PlugwiseMQTTMeteringPowerOutletDriverInstance
 		// get the power value
 		DecimalMeasure<Power> power = DecimalMeasure
 				.valueOf(message.getPower() + " W");
+
+		// if not on, turn it on
+		if ((this.currentState.getState(OnOffState.class.getSimpleName())
+				.getCurrentStateValue()[0] instanceof OffStateValue)
+				&& (message.getPower() > 0.0) && this.firstState)
+		{
+			OnOffState onOffState = new OnOffState(new OnStateValue());
+
+			// update the on-off state
+			this.currentState.setState(OnOffState.class.getSimpleName(),
+					onOffState);
+
+			// turn off the first state flag
+			this.firstState = false;
+		}
 
 		// update the power state
 		this.updatePowerState(power);
