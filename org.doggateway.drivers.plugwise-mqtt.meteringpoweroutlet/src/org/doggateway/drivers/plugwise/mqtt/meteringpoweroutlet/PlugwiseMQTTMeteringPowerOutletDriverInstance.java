@@ -52,6 +52,7 @@ import it.polito.elite.dog.core.library.model.statevalue.ActiveEnergyStateValue;
 import it.polito.elite.dog.core.library.model.statevalue.ActivePowerStateValue;
 import it.polito.elite.dog.core.library.model.statevalue.OffStateValue;
 import it.polito.elite.dog.core.library.model.statevalue.OnStateValue;
+import it.polito.elite.dog.core.library.model.statevalue.StateValue;
 import it.polito.elite.dog.core.library.util.LogHelper;
 
 public class PlugwiseMQTTMeteringPowerOutletDriverInstance
@@ -336,7 +337,7 @@ public class PlugwiseMQTTMeteringPowerOutletDriverInstance
 				"0.0 " + SI.KILO(SI.WATT.times(NonSI.HOUR)).toString()));
 		this.currentState.setState(
 				SinglePhaseActiveEnergyState.class.getSimpleName(),
-				new SinglePhaseActiveEnergyState(energyStateValue));
+				new SinglePhaseActiveEnergyState(new StateValue[]{energyStateValue}));
 
 		// initialize the power state value
 		ActivePowerStateValue powerStateValue = new ActivePowerStateValue();
@@ -344,7 +345,7 @@ public class PlugwiseMQTTMeteringPowerOutletDriverInstance
 				.setValue(DecimalMeasure.valueOf("0.0 " + SI.WATT.toString()));
 		this.currentState.setState(
 				SinglePhaseActivePowerMeasurementState.class.getSimpleName(),
-				new SinglePhaseActivePowerMeasurementState(powerStateValue));
+				new SinglePhaseActivePowerMeasurementState(new StateValue[]{powerStateValue}));
 	}
 
 	private void handleEnergyStateMessage(EnergyStateMessage message)
