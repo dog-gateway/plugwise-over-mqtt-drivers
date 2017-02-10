@@ -303,6 +303,10 @@ public abstract class PlugwiseMQTTDeviceDriver extends PlugwiseMQTTDriver
 				this.managedInstances.put(device.getDeviceId(), driverInstance);
 			}
 		}
+		else
+		{
+			this.context.ungetService(reference);
+		}
 
 		return null;
 
