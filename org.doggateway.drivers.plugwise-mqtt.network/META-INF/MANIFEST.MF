@@ -22,3 +22,4 @@ Export-Package: org.doggateway.drivers.plugwise.mqtt.network,
  org.doggateway.drivers.plugwise.mqtt.network.info,
  org.doggateway.drivers.plugwise.mqtt.network.interfaces,
  org.doggateway.drivers.plugwise.mqtt.network.messages
+Bundle-ActivationPolicy: lazy
