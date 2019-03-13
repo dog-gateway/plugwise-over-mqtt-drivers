@@ -283,7 +283,7 @@ public class PlugwiseMQTTNetworkDriverImpl
 						this.logger);
 				
 				//register this driver as listener
-				this.plugwiseClient.addMqttMesssageListener(this);
+				this.plugwiseClient.addMqttMessageListener(this);
 
 				// connect synchronously: the driver cannot be registered if it
 				// cannot connect to the broker...
