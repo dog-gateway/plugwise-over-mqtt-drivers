@@ -32,7 +32,6 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.device.Device;
 import org.osgi.service.device.Driver;
-import org.osgi.service.log.LogService;
 
 import it.polito.elite.dog.core.devicefactory.api.DeviceFactory;
 import it.polito.elite.dog.core.library.model.ControllableDevice;
@@ -321,9 +320,6 @@ public class PlugwiseMQTTGatewayDriver implements Driver
 		public void addActiveDriverDetails(PlugwiseMQTTDriverInfo driverInfo)
 		{
 			this.activeDriverDetails.add(driverInfo);
-
-			this.logger.log(LogService.LOG_INFO, "Added new driver details:\n"
-					+ driverInfo);
 		}
 
 		/**
