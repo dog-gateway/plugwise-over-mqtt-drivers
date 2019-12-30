@@ -23,3 +23,4 @@ Export-Package: org.doggateway.drivers.plugwise.mqtt.network,
  org.doggateway.drivers.plugwise.mqtt.network.interfaces,
  org.doggateway.drivers.plugwise.mqtt.network.messages
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.doggateway.drivers.plugwise-mqtt.network
