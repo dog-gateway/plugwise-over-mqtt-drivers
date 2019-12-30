@@ -5,4 +5,5 @@
       <provide interface="org.osgi.service.cm.ManagedService"/>
    </service>
    <property name="service.pid" type="String" value="org.doggateway.drivers.plugwise.mqtt.network"/>
+   <reference bind="setLoggerService" cardinality="1..1" interface="org.osgi.service.log.LogService" name="LogService" policy="dynamic" unbind="unsetLoggerService"/>
 </scr:component>
