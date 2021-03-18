@@ -1,6 +1,6 @@
 package org.doggateway.drivers.plugwise.mqtt.network.messages;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * A class wrapping information exchanged with Pulgwise-2-py over MQTT, state
