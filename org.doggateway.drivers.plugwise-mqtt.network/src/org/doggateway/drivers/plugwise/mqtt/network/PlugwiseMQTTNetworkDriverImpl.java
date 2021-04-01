@@ -29,9 +29,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.doggateway.drivers.plugwise.mqtt.network.info.PlugwiseMQTTDeviceInfo;
 import org.doggateway.drivers.plugwise.mqtt.network.interfaces.CircleDiscoveryListener;
 import org.doggateway.drivers.plugwise.mqtt.network.interfaces.PlugwiseMQTTNetwork;
@@ -49,6 +46,10 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.osgi.service.log.LogService;
 import org.osgi.service.log.Logger;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import it.polito.elite.dog.addons.mqtt.library.transport.MqttAsyncDispatcher;
 import it.polito.elite.dog.addons.mqtt.library.transport.MqttMessageListener;
@@ -140,11 +141,11 @@ public class PlugwiseMQTTNetworkDriverImpl
         // initialize the instance-wide object mapper
         this.mapper = new ObjectMapper();
         // set the mapper pretty printing
-        this.mapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
+        this.mapper.enable(SerializationFeature.INDENT_OUTPUT);
         // avoid empty arrays and null values
         this.mapper.configure(
-                SerializationConfig.Feature.WRITE_EMPTY_JSON_ARRAYS, false);
-        this.mapper.setSerializationInclusion(Inclusion.NON_NULL);
+                SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, false);
+        this.mapper.setSerializationInclusion(Include.NON_NULL);
 
         // the executor service
         // grants that all messages are delivered in order
